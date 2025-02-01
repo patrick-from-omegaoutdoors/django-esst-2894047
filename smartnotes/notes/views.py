@@ -15,7 +15,7 @@ from .models import Notes
 #     except Notes.DoesNotExist:
 #         raise Http404("Note does not exist")
     
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 
 class NotesListView(ListView):
     model = Notes
@@ -31,3 +31,8 @@ class PopularNotesListView(ListView):
 class NotesDetailView(DetailView):
     model = Notes
     context_object_name = "note"
+
+class NotesCreateView(CreateView):
+    model = Notes
+    fields = ['title', 'content']
+    success_url = '/smart/notes'
