@@ -16,6 +16,7 @@ from .models import Notes
 #         raise Http404("Note does not exist")
     
 from django.views.generic import ListView, DetailView, CreateView
+from .forms import NotesForm
 
 class NotesListView(ListView):
     model = Notes
@@ -34,5 +35,5 @@ class NotesDetailView(DetailView):
 
 class NotesCreateView(CreateView):
     model = Notes
-    fields = ['title', 'content']
+    form_class = NotesForm
     success_url = '/smart/notes'
