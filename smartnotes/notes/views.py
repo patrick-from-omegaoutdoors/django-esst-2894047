@@ -17,6 +17,7 @@ from .models import Notes
 #         raise Http404("Note does not exist")
     
 from .forms import NotesForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     ListView, 
     DetailView, 
@@ -25,10 +26,14 @@ from django.views.generic import (
     DeleteView,
 )
 
-class NotesListView(ListView):
+class NotesListView(LoginRequiredMixin, ListView):
     model = Notes
     context_object_name = "notes"
     template_name = "notes/notes_list.html"
+    login_url = "/admin"
+
+    def get_queryset(self):
+        return self.request.user.notes.all()
 
 class PopularNotesListView(ListView):
     model = Notes
@@ -44,6 +49,12 @@ class NotesCreateView(CreateView):
     model = Notes
     form_class = NotesForm
     success_url = '/smart/notes'
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 class NotesUpdateView(UpdateView):
     model = Notes
@@ -61,4 +72,5 @@ def add_like_view(request, pk):
         note.likes += 1
         note.save()
         return HttpResponseRedirect(reverse("notes.detail", args=(pk,)))
+    
     raise Http404
