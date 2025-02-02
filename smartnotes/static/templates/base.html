@@ -12,12 +12,13 @@
     <nav class="navbar navbar-dark bg-dark">
         <div class="ms-auto">
             {% if user.is_authenticated %}
-            <form method="POST" action="{% url 'logout' %}" class="d-inline">
-                {% csrf_token %}
-                <button type="submit"class="btn btn-outline-light me-1">Logout</button> 
-            </form>
+                <a href="{% url 'home' %}" class="btn btn-outline-light me-1">Home</a>
+                <form method="POST" action="{% url 'logout' %}" class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit"class="btn btn-outline-light me-1">Logout</button> 
+                </form>
             {% else %}
-            <a href="{% url 'login' %}" class="btn btn-outline-light me-1">Login</a>
+                <a href="{% url 'login' %}" class="btn btn-outline-light me-1">Login</a>
             {% endif %}
         </div>
 
