@@ -145,3 +145,5 @@ urlpatterns = [
 You create a url for any pk you pass to detail
 
 ## Class based views
+
+## CRUD Create Read Update Delete

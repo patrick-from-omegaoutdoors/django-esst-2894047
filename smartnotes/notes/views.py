@@ -15,8 +15,14 @@ from .models import Notes
 #     except Notes.DoesNotExist:
 #         raise Http404("Note does not exist")
     
-from django.views.generic import ListView, DetailView, CreateView
 from .forms import NotesForm
+from django.views.generic import (
+    ListView, 
+    DetailView, 
+    CreateView, 
+    UpdateView, 
+    DeleteView,
+)
 
 class NotesListView(ListView):
     model = Notes
@@ -37,3 +43,13 @@ class NotesCreateView(CreateView):
     model = Notes
     form_class = NotesForm
     success_url = '/smart/notes'
+
+class NotesUpdateView(UpdateView):
+    model = Notes
+    form_class = NotesForm
+    success_url = '/smart/notes'
+
+class NotesDeleteView(DeleteView):
+    model = Notes
+    success_url = '/smart/notes'
+    template_name = 'notes/notes_delete.html'
