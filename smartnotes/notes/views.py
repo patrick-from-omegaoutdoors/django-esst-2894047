@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from django.http import Http404
+from django.shortcuts import render, get_object_or_404
+from django.http import Http404, HttpResponseRedirect
+from django.urls import reverse
 
 from .models import Notes
 
@@ -53,3 +54,11 @@ class NotesDeleteView(DeleteView):
     model = Notes
     success_url = '/smart/notes'
     template_name = 'notes/notes_delete.html'
+
+def add_like_view(request, pk):
+    if request.method == 'POST':
+        note = get_object_or_404(Notes, pk=pk)
+        note.likes += 1
+        note.save()
+        return HttpResponseRedirect(reverse("notes.detail", args=(pk,)))
+    raise Http404
