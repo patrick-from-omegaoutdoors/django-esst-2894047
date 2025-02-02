@@ -6,6 +6,7 @@ class Notes(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     likes = models.PositiveIntegerField(default=0)
+    is_public = models.BooleanField(default=False)
     user = models.ForeignKey(
         User, 
         on_delete=models.CASCADE, 
