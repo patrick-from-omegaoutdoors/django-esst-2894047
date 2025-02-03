@@ -10,15 +10,15 @@
 
 {% if form.errors %}
 
-<div class="alert alert-danger my-5">
-    <ul>
-        {% for field, errors in form.errors.items %}
-            {% for error in errors %}
-                <p><strong>{{ field|capfirst }}</strong>: {{ error }}</p>
+    <div class="alert alert-danger my-5">
+        <ul>
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <p><strong>{{ field|capfirst }}</strong>: {{ error }}</p>
+                {% endfor %}
             {% endfor %}
-        {% endfor %}
-    </ul>
-</div>
+        </ul>
+    </div>
 
 {% endif %}
 
